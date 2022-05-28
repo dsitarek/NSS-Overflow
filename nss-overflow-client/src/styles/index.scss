@@ -1,7 +1,96 @@
+$backgroundgray: rgb(221, 220, 220);
+$nssOrange: #ffa500;
+
 body {
-  background-color: lightgray !important;
+  background-color: white !important;
 }
 
 .main-container {
   margin-top: 5em;
+}
+
+//Navbar
+.nav-span {
+  color: black;
+  font-size: 1.5em;
+  padding: 0 0.5em 0 0.5em;
+  line-height: 1.75em;
+  text-shadow: 1px 1px 1px black;
+}
+
+.nav-span:hover,
+.nav-span-user:hover {
+  filter: brightness(80%);
+}
+
+.nav-span-user {
+  color: black;
+  font-size: 1.1em;
+}
+
+.dropdown-toggle.nav-link::after {
+  color: black;
+}
+
+.dropdown-menu.show {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  margin-top: 0.3em;
+  border-radius: 0 0 6px 6px;
+  border-top: none;
+}
+
+.dropdown-menu.show :first-child:hover {
+  background-color: transparent;
+}
+
+.dropdown-menu.show a.nav-link {
+  color: black;
+}
+
+.dropdown-menu.show a.nav-link:hover {
+  color: rgb(211, 127, 31);
+  filter: brightness(80%);
+}
+
+.navbar {
+  background-color: $backgroundgray;
+  height: 3.5em;
+  box-shadow: 0 0 1px $backgroundgray;
+}
+
+.nav-logo {
+  width: 15em;
+  margin-left: -2em;
+  padding: 0;
+}
+
+.navbar-container {
+  width: 100%;
+}
+
+.login-btn-container {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  margin: 0 1em 0 auto;
+}
+
+.login-btn {
+  width: 10em;
+}
+
+.user-img {
+  border: 1px transparent;
+  border-radius: 100px;
+  width: 2em;
+  margin-right: 0.5em;
+}
+
+.user-drop {
+  margin: 0.4em 1em 0 auto;
+}
+
+.nav-message-icon {
+  margin-top: 0.3em;
 }

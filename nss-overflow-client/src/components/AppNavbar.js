@@ -14,6 +14,8 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import signInButton from '../assets/googleSignIn.png';
+import nssOverflowLogo from '../assets/NSSOverflowBlack.png';
+import messageIcon from '../assets/messageIcon.png';
 
 export default function AppNavbar({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,16 +24,14 @@ export default function AppNavbar({ user }) {
 
   return (
     <div className='navbar-container'>
-      <Navbar color='light' expand='md' fixed='top' light>
-        <NavbarBrand href='/'></NavbarBrand>
+      <Navbar expand='md' fixed='top' light>
+        <NavbarBrand href='/'>
+          <img className='nav-logo' src={nssOverflowLogo} alt='Logo' />
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className='container-fluid' navbar>
-            <NavItem>
-              <NavLink href='/'>
-                <span className='nav-span'>Home</span>
-              </NavLink>
-            </NavItem>
+            <NavItem>SearchBarPH</NavItem>
             {user ? (
               <>
                 <UncontrolledDropdown nav inNavbar className='user-drop'>
@@ -63,6 +63,15 @@ export default function AppNavbar({ user }) {
                 </button>
               </>
             )}
+            <NavItem>
+              <NavLink href='/'>
+                <img
+                  className='nav-message-icon'
+                  src={messageIcon}
+                  alt='message-icon'
+                />
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

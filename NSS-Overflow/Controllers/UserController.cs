@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSS_Overflow.Data;
 using NSS_Overflow.Models;
-using NSS_Overflow.Repos;
 
 namespace NSS_Overflow.Controllers
 {
@@ -11,9 +10,8 @@ namespace NSS_Overflow.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        //TODO: fix AppDbContext injection
         private readonly AppDbContext _dbContext;
-        public UserController([ScopedService]AppDbContext dbContext)
+        public UserController(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -30,8 +28,8 @@ namespace NSS_Overflow.Controllers
         {
             FirebaseToken decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
             var uid = decoded.Uid;
-            bool customerExists = _dbContext.Users.FirstOrDefault(x => x.UserId == uid).UserId == uid;
-            if (!customerExists)
+            var customerExists = _dbContext.Users.FirstOrDefault(x => x.UserId == uid);
+            if (customerExists == null)
             {
                 User userFromToken = new User()
                 {
