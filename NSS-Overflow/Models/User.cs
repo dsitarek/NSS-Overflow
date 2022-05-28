@@ -8,6 +8,7 @@ namespace NSS_Overflow.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [GraphQLIgnore]
         public string UserId { get; set; }
         [Required]
         public string Username { get; set; }

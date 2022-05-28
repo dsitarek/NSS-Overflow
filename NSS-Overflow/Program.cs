@@ -11,8 +11,11 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var firebaseCredPath = builder.Configuration["FirebaseCredPath"];
 var dbConnectionString = builder.Configuration["DefaultConnection"];
 
+builder.Services.AddControllers();
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), contextLifetime: ServiceLifetime.Transient, optionsLifetime: ServiceLifetime.Singleton);
 builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -41,15 +44,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-
 var app = builder.Build();
 
 app.UseRouting();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapGraphQL();
-});
 
 app.UseHttpsRedirection();
 
@@ -57,6 +54,14 @@ app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthentication();
 
-//app.UseAuthorization();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+    endpoints.MapControllers();
+});
 
 app.Run();
