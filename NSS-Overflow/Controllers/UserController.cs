@@ -16,12 +16,7 @@ namespace NSS_Overflow.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
-        public IActionResult get()
-        {
-            return Ok(1);
-        }
-
+        //The Front-end will use this route on user login with Google to verify if this user exists in the database. If the user does not exist it will create a record in the users table.
         [Authorize]
         [HttpGet("Auth")]
         public async Task<IActionResult> PostAsync([FromHeader] string idToken)

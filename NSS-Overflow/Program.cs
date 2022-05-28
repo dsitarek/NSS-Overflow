@@ -14,7 +14,7 @@ var dbConnectionString = builder.Configuration["DefaultConnection"];
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), contextLifetime: ServiceLifetime.Transient, optionsLifetime: ServiceLifetime.Singleton);
 builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering();
+builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering().AddSorting();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>
 {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Routes from './routes/index';
 import auth from './data/auth/firebaseConfig';
 import userExistsInDB from './data/userData';
 import AppNavbar from './components/AppNavbar';
-import { signInUser } from './data/auth/firebaseSignInOut';
+import getNewestThreads from './data/threadData';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,6 +24,7 @@ function App() {
         setUser(userObj);
         sessionStorage.setItem('idToken', authed.accessToken);
         userExistsInDB(authed.accessToken);
+        getNewestThreads();
       } else if (user || user === null) {
         setUser(false);
         sessionStorage.removeItem('idToken');
@@ -34,7 +36,9 @@ function App() {
   return (
     <div className='App'>
       <AppNavbar user={user} />
-      <div className='main-container'>Hello World</div>
+      <div className='main-container'>
+        <Routes />
+      </div>
     </div>
   );
 }

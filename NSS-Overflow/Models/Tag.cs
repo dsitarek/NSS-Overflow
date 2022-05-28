@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace NSS_Overflow.Models
 {
+    [GraphQLDescription("Represents a tag added to a thread to categorize it")]
     public class Tag
     {
         [Key]

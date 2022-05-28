@@ -1,6 +1,6 @@
 const databaseConfig = {
   databaseURL: process.env.REACT_APP_DBURL,
-  GraphQLURL: process.env.REACT_APP_REACT_APP_DBGQL,
+  GraphQLURL: process.env.REACT_APP_DBGQL,
 };
 
 export default databaseConfig;

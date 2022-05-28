@@ -7,8 +7,10 @@ namespace NSS_Overflow.GraphQL
     public class Query
     {
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging]
         [UseProjection]
         [UseFiltering]
+        [UseSorting]
         public IQueryable<QuestionThread> GetThread([ScopedService] AppDbContext context)
         {
             return context.Threads;

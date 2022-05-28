@@ -1,4 +1,5 @@
-$backgroundgray: rgb(221, 220, 220);
+$backgroundGray: #f8f9f9;
+$backgroundOrange: #ffa6002f;
 $nssOrange: #ffa500;
 
 body {
@@ -33,9 +34,9 @@ body {
 }
 
 .dropdown-menu.show {
-  background-color: rgb(255, 255, 255);
+  background-color: $backgroundGray;
   color: black;
-  margin-top: 0.3em;
+  margin-left: 1em;
   border-radius: 0 0 6px 6px;
   border-top: none;
 }
@@ -49,19 +50,18 @@ body {
 }
 
 .dropdown-menu.show a.nav-link:hover {
-  color: rgb(211, 127, 31);
+  color: $nssOrange;
   filter: brightness(80%);
 }
 
 .navbar {
-  background-color: $backgroundgray;
-  height: 3.5em;
-  box-shadow: 0 0 1px $backgroundgray;
+  background-color: $backgroundGray;
+  height: 3.2em;
+  box-shadow: 0 0 3px gray;
 }
 
 .nav-logo {
-  width: 15em;
-  margin-left: -2em;
+  width: 11em;
   padding: 0;
 }
 
@@ -82,15 +82,65 @@ body {
 
 .user-img {
   border: 1px transparent;
-  border-radius: 100px;
+  border-radius: 5px;
   width: 2em;
   margin-right: 0.5em;
 }
 
 .user-drop {
-  margin: 0.4em 1em 0 auto;
+  margin: 0.25em 1em 0 auto;
 }
 
 .nav-message-icon {
-  margin-top: 0.3em;
+  margin-top: 0.25em;
+  width: 1.5em;
+}
+
+//Home page
+.home-thread-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+//ThreadListItem
+
+.thread-list-item {
+  display: grid;
+  grid-template-columns: 15% auto 35%;
+  grid-template-rows: 25% auto 25%;
+  border-top: 1px solid gray;
+  background-color: $backgroundOrange;
+  width: 60%;
+  padding: 0.5em;
+
+  .thread-list-item-karma-container {
+    margin-right: 1em;
+
+    ul {
+      list-style: none;
+    }
+  }
+
+  .thread-list-item-body {
+    a {
+      text-decoration: none;
+      font-size: 1.1em;
+    }
+  }
+
+  .thread-posted-by-span {
+    grid-column-start: 3;
+    grid-row-start: 3;
+    font-style: italic;
+    color: gray;
+    font-size: 0.8em;
+    margin: 0 0 0 auto;
+
+    img {
+      width: 1.5em;
+      border: 1px transparent;
+      border-radius: 3px;
+    }
+  }
 }

@@ -47,7 +47,6 @@ export default function AppNavbar({ user }) {
                   <DropdownMenu>
                     <DropdownItem>
                       <NavLink onClick={signOutUser}>Sign Out</NavLink>
-                      <NavLink href='/User'>My Account</NavLink>
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>

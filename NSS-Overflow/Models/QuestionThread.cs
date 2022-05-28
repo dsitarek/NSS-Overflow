@@ -2,6 +2,7 @@
 
 namespace NSS_Overflow.Models
 {
+    [GraphQLDescription("Represents a Question thread created by a user")]
     public class QuestionThread
     {
         [Key]
