@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Routes from './routes/index';
 import auth from './data/auth/firebaseConfig';
 import userExistsInDB from './data/userData';
-import AppNavbar from './components/AppNavbar';
+import { AppNavbar, SideNav } from './components/index';
 import getNewestThreads from './data/threadData';
 
 function App() {
@@ -34,10 +34,13 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
+    <div>
       <AppNavbar user={user} />
-      <div className='main-container'>
-        <Routes />
+      <div className='app-container'>
+        <SideNav />
+        <div className='main-container'>
+          <Routes />
+        </div>
       </div>
     </div>
   );

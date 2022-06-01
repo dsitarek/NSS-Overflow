@@ -16,5 +16,6 @@ namespace NSS_Overflow.Models
         public string UserId { get; set; }
         public User User { get; set; }
         public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public ICollection<ThreadTag> ThreadTags { get; set;}
     }
 }

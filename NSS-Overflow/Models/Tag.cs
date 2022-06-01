@@ -9,6 +9,6 @@ namespace NSS_Overflow.Models
         [Required]
         public string TagTitle { get; set; }
         public string? TagDescription { get; set; }
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<ThreadTag> ThreadTags { get; set; }
     }
 }

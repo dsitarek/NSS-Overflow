@@ -6,8 +6,15 @@ body {
   background-color: white !important;
 }
 
-.main-container {
+.app-container {
   margin-top: 5em;
+  display: grid;
+  grid-template-columns: 15% 8em auto;
+  width: 100%;
+}
+
+.main-container {
+  grid-column-start: 3;
 }
 
 //Navbar
@@ -96,11 +103,30 @@ body {
   width: 1.5em;
 }
 
+//Side Nav
+.side-nav {
+  margin-left: 10%;
+  position: sticky;
+  grid-column-start: 2;
+  min-width: 0;
+  ul {
+    list-style: none;
+    line-height: 2;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  A:hover {
+    text-decoration: underline;
+    color: $nssOrange;
+  }
+}
+
 //Home page
 .home-thread-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 //ThreadListItem
@@ -111,8 +137,8 @@ body {
   grid-template-rows: 25% auto 25%;
   border-top: 1px solid gray;
   background-color: $backgroundOrange;
-  width: 60%;
   padding: 0.5em;
+  width: 60%;
 
   .thread-list-item-karma-container {
     margin-right: 1em;
@@ -142,5 +168,35 @@ body {
       border: 1px transparent;
       border-radius: 3px;
     }
+  }
+}
+
+//Tag
+.tag-container {
+  margin-top: 5em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+//TagCard
+.tag-card-container {
+  border: 1px solid rgba(153, 153, 153, 0.76);
+  border-radius: 4px;
+  margin: 0.5em;
+  font-size: 0.7em;
+  flex-basis: 18%;
+  padding: 1em;
+  .tag-title-span {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: normal;
+    background-color: $backgroundOrange;
+    border-radius: 3px;
+    padding: 0.15em;
+    cursor: pointer;
+    color: rgb(151, 103, 12);
+  }
+  p {
+    margin-top: 0.5em;
   }
 }

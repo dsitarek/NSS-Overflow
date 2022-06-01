@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import getNewestThreads from '../data/threadData';
 import { ThreadListItem } from '../components/index';
 
-export default function Home() {
+export default function TagQuestions() {
   const [threads, setThreads] = useState([]);
 
   useEffect(() => {

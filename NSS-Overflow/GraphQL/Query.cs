@@ -32,5 +32,13 @@ namespace NSS_Overflow.GraphQL
             return context.Users;
         }
 
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        [UseFiltering]
+        public IQueryable<ThreadTag> GetThreadTags([ScopedService] AppDbContext context)
+        {
+            return context.ThreadTags;
+        }
+
     }
 }
