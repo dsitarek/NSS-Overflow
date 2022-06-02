@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Routes from './routes/index';
 import auth from './data/auth/firebaseConfig';
 import userExistsInDB from './data/userData';
-import AppNavbar from './components/AppNavbar';
-import { signInUser } from './data/auth/firebaseSignInOut';
+import { AppNavbar, SideNav } from './components/index';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,9 +32,14 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
+    <div>
       <AppNavbar user={user} />
-      <div className='main-container'>Hello World</div>
+      <div className='app-container'>
+        <SideNav />
+        <div className='main-container'>
+          <Routes />
+        </div>
+      </div>
     </div>
   );
 }

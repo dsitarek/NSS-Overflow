@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NSS_Overflow.Data;
 
@@ -11,9 +12,10 @@ using NSS_Overflow.Data;
 namespace NSS_Overflow.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220601013310_AddThreadTags")]
+    partial class AddThreadTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +108,7 @@ namespace NSS_Overflow.Migrations
 
                     b.Property<string>("TagTitle")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -121,13 +123,9 @@ namespace NSS_Overflow.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TagTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ThreadId", "TagId");
 
-                    b.HasIndex("TagTitle");
+                    b.HasIndex("TagId");
 
                     b.ToTable("ThreadTags");
                 });
@@ -196,8 +194,7 @@ namespace NSS_Overflow.Migrations
                 {
                     b.HasOne("NSS_Overflow.Models.Tag", "Tag")
                         .WithMany("ThreadTags")
-                        .HasForeignKey("TagTitle")
-                        .HasPrincipalKey("TagTitle")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

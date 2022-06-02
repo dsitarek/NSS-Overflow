@@ -2,6 +2,7 @@
 
 namespace NSS_Overflow.Models
 {
+    [GraphQLDescription("Represents a Question thread created by a user")]
     public class QuestionThread
     {
         [Key]
@@ -15,5 +16,6 @@ namespace NSS_Overflow.Models
         public string UserId { get; set; }
         public User User { get; set; }
         public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public ICollection<ThreadTag> ThreadTags { get; set;}
     }
 }

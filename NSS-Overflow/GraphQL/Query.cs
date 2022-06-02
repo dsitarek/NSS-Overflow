@@ -7,8 +7,10 @@ namespace NSS_Overflow.GraphQL
     public class Query
     {
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging]
         [UseProjection]
         [UseFiltering]
+        [UseSorting]
         public IQueryable<QuestionThread> GetThread([ScopedService] AppDbContext context)
         {
             return context.Threads;
@@ -30,5 +32,19 @@ namespace NSS_Overflow.GraphQL
             return context.Users;
         }
 
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        [UseFiltering]
+        public IQueryable<ThreadTag> GetThreadTags([ScopedService] AppDbContext context)
+        {
+            return context.ThreadTags;
+        }
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        public IQueryable<ThreadTag> GetThreadsByTag([ScopedService] AppDbContext context, string tag)
+        {
+            var threads = context.ThreadTags.Where(t => t.Tag.TagTitle == tag);
+            return threads;
+        }
     }
 }
