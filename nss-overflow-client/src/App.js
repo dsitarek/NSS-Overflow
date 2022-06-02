@@ -3,7 +3,6 @@ import Routes from './routes/index';
 import auth from './data/auth/firebaseConfig';
 import userExistsInDB from './data/userData';
 import { AppNavbar, SideNav } from './components/index';
-import getNewestThreads from './data/threadData';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,7 +23,6 @@ function App() {
         setUser(userObj);
         sessionStorage.setItem('idToken', authed.accessToken);
         userExistsInDB(authed.accessToken);
-        getNewestThreads();
       } else if (user || user === null) {
         setUser(false);
         sessionStorage.removeItem('idToken');

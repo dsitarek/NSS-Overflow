@@ -16,7 +16,6 @@ const getAllTags = async () => {
         },
       }
     );
-    console.log(res.data.data.tag);
     return res.data.data.tag;
   } catch (error) {
     console.log(error);

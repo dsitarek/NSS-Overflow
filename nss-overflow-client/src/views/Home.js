@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getNewestThreads from '../data/threadData';
+import { getNewestThreads } from '../data/threadData';
 import { ThreadListItem } from '../components/index';
 
 export default function Home() {

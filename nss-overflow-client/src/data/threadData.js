@@ -14,7 +14,7 @@ const getNewestThreads = async () => {
       dbURL,
       {
         query:
-          'query { thread(order: { datePosted: DESC }, first: 10) { edges { node { id title datePosted user{ username avatar } } } } }',
+          'query { thread(order: { datePosted: DESC }, first: 10) { edges { node { id title datePosted threadTags{ tag { tagTitle } } user{ username avatar } } } } }',
       },
       {
         headers: {
@@ -28,13 +28,18 @@ const getNewestThreads = async () => {
   }
 };
 
-const getTagThreads = async () => {
+/**
+ * Retrieves threads matching the specified tag category.
+ * @async GraphQL Query
+ * @return {Array} Array of Thread objects.
+ */
+const getTagThreads = async (tag) => {
+  console.log(tag);
   try {
     const res = await axios.post(
       dbURL,
       {
-        query:
-          'query { thread(order: { datePosted: DESC }, first: 10) { edges { node { id title datePosted user{ username avatar } } } } }',
+        query: `query { threadsByTag(tag: "${tag}"){ tagId thread { id title datePosted threadTags{ tag { tagTitle } } user{ username avatar } } } }`,
       },
       {
         headers: {
@@ -42,10 +47,10 @@ const getTagThreads = async () => {
         },
       }
     );
-    return res.data.data.thread.edges.map((item) => item.node);
+    return res.data.data.threadsByTag.map((item) => item.thread);
   } catch (error) {
     console.log(error);
   }
 };
 
-export default getNewestThreads;
+export { getNewestThreads, getTagThreads };

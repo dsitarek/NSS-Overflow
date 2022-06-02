@@ -106,7 +106,7 @@ namespace NSS_Overflow.Migrations
 
                     b.Property<string>("TagTitle")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -121,9 +121,13 @@ namespace NSS_Overflow.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
+                    b.Property<string>("TagTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("ThreadId", "TagId");
 
-                    b.HasIndex("TagId");
+                    b.HasIndex("TagTitle");
 
                     b.ToTable("ThreadTags");
                 });
@@ -192,7 +196,8 @@ namespace NSS_Overflow.Migrations
                 {
                     b.HasOne("NSS_Overflow.Models.Tag", "Tag")
                         .WithMany("ThreadTags")
-                        .HasForeignKey("TagId")
+                        .HasForeignKey("TagTitle")
+                        .HasPrincipalKey("TagTitle")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -134,14 +134,17 @@ body {
 .thread-list-item {
   display: grid;
   grid-template-columns: 15% auto 35%;
-  grid-template-rows: 25% auto 25%;
+  grid-template-rows: 30% auto 25%;
   border-top: 1px solid gray;
   background-color: $backgroundOrange;
   padding: 0.5em;
   width: 60%;
+  min-width: 40em;
+  max-width: 55em;
 
   .thread-list-item-karma-container {
     margin-right: 1em;
+    min-width: 20em;
 
     ul {
       list-style: none;
@@ -153,6 +156,16 @@ body {
       text-decoration: none;
       font-size: 1.1em;
     }
+  }
+
+  .thread-tag {
+    color: rgb(185, 121, 0);
+    background-color: $backgroundOrange;
+    margin: 0.25em;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    padding: 0.1em;
+    border-radius: 4px;
   }
 
   .thread-posted-by-span {
@@ -186,6 +199,7 @@ body {
   font-size: 0.7em;
   flex-basis: 18%;
   padding: 1em;
+  min-height: 15em;
   .tag-title-span {
     text-align: center;
     font-size: 1.5em;

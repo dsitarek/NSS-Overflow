@@ -39,6 +39,12 @@ namespace NSS_Overflow.GraphQL
         {
             return context.ThreadTags;
         }
-
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        public IQueryable<ThreadTag> GetThreadsByTag([ScopedService] AppDbContext context, string tag)
+        {
+            var threads = context.ThreadTags.Where(t => t.Tag.TagTitle == tag);
+            return threads;
+        }
     }
 }

@@ -4,6 +4,7 @@ import ReactTimeAgo from 'react-time-ago';
 import { NavLink } from 'react-router-dom';
 
 export default function ThreadListItem({ thread }) {
+  console.log(thread);
   return (
     <div className='thread-list-item'>
       <div className='thread-list-item-karma-container'>
@@ -14,6 +15,18 @@ export default function ThreadListItem({ thread }) {
       </div>
       <div className='thread-list-item-body'>
         <NavLink to={`/${thread.id}`}>{thread.title}</NavLink>
+        <div>
+          {thread.threadTags
+            ? thread.threadTags.map((index) => (
+                <span
+                  key={`${thread.id}-${index.tag.tagTitle}`}
+                  className='thread-tag'
+                >
+                  {index.tag.tagTitle}
+                </span>
+              ))
+            : ''}
+        </div>
       </div>
       <span className='thread-posted-by-span'>
         Posted by: <img src={thread.user.avatar} alt='user-profile-img' />
@@ -29,6 +42,13 @@ ThreadListItem.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     datePosted: PropTypes.string,
+    threadTags: PropTypes.arrayOf(
+      PropTypes.shape({
+        tag: PropTypes.shape({
+          tagTitle: PropTypes.string,
+        }),
+      })
+    ),
     user: PropTypes.shape({
       username: PropTypes.string,
       avatar: PropTypes.string,
