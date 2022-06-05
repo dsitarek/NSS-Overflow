@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getAllTags from '../data/tagData';
+import { getAllTags } from '../data/tagData';
 import TagCard from '../components/TagCard';
 
 export default function Tags() {

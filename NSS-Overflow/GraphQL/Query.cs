@@ -17,6 +17,7 @@ namespace NSS_Overflow.GraphQL
         }
         [UseDbContext(typeof(AppDbContext))]
         [UseProjection]
+        [UseSorting]
         public IQueryable<Post> GetPost([ScopedService] AppDbContext context)
         {
             return context.Posts;
@@ -45,6 +46,15 @@ namespace NSS_Overflow.GraphQL
         {
             var threads = context.ThreadTags.Where(t => t.Tag.TagTitle == tag);
             return threads;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        [UseSorting]
+        public IQueryable<QuestionThread> GetSingleThread([ScopedService] AppDbContext context, int threadId)
+        {
+            var thread = context.Threads.Where(t => t.Id == threadId);
+            return thread;
         }
     }
 }

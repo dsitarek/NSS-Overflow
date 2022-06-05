@@ -15,7 +15,7 @@ const userExistsInDB = async () => {
       headers: { Authorization: 'Bearer ' + token, idToken: token },
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
   }
 };
 

@@ -3,9 +3,11 @@ import Routes from './routes/index';
 import auth from './data/auth/firebaseConfig';
 import userExistsInDB from './data/userData';
 import { AppNavbar, SideNav } from './components/index';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     auth.onAuthStateChanged(async (authed) => {
@@ -39,6 +41,12 @@ function App() {
         <div className='main-container'>
           <Routes />
         </div>
+        <button
+          className='btn btn-primary post-question-btn'
+          onClick={() => navigate('/askQuestion')}
+        >
+          Ask Question
+        </button>
       </div>
     </div>
   );
