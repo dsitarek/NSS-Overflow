@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NSS_Overflow.Data;
 
@@ -11,9 +12,10 @@ using NSS_Overflow.Data;
 namespace NSS_Overflow.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220604174217_removePostRequired")]
+    partial class removePostRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,14 @@ namespace NSS_Overflow.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ThreadId")
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostReplyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ThreadId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -48,46 +57,14 @@ namespace NSS_Overflow.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("ThreadId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("NSS_Overflow.Models.PostReply", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DatePosted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("LastEdited")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PostBody")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostReplyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostReplyId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PostReplies");
                 });
 
             modelBuilder.Entity("NSS_Overflow.Models.QuestionThread", b =>
@@ -180,6 +157,10 @@ namespace NSS_Overflow.Migrations
 
             modelBuilder.Entity("NSS_Overflow.Models.Post", b =>
                 {
+                    b.HasOne("NSS_Overflow.Models.Post", null)
+                        .WithMany("PostReplies")
+                        .HasForeignKey("PostId");
+
                     b.HasOne("NSS_Overflow.Models.QuestionThread", "Thread")
                         .WithMany("Posts")
                         .HasForeignKey("ThreadId")
@@ -194,26 +175,6 @@ namespace NSS_Overflow.Migrations
                         .IsRequired();
 
                     b.Navigation("Thread");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("NSS_Overflow.Models.PostReply", b =>
-                {
-                    b.HasOne("NSS_Overflow.Models.Post", "Post")
-                        .WithMany("PostReplies")
-                        .HasForeignKey("PostReplyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NSS_Overflow.Models.User", "User")
-                        .WithMany("PostReplies")
-                        .HasForeignKey("UserId")
-                        .HasPrincipalKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
 
                     b.Navigation("User");
                 });
@@ -268,8 +229,6 @@ namespace NSS_Overflow.Migrations
 
             modelBuilder.Entity("NSS_Overflow.Models.User", b =>
                 {
-                    b.Navigation("PostReplies");
-
                     b.Navigation("Posts");
 
                     b.Navigation("Threads");

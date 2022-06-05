@@ -17,6 +17,7 @@ namespace NSS_Overflow.Models
         public string? Avatar { get; set; }
         public ICollection<QuestionThread> Threads { get; set; }
         public ICollection<Post> Posts { get; set; }
+        public ICollection<PostReply> PostReplies { get; set; }
 
     }
 }

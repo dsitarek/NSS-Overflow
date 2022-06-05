@@ -2,8 +2,7 @@
 
 namespace NSS_Overflow.Models
 {
-    [GraphQLDescription("Represents a child of a thread or a reply to a child of a thread")]
-    public class Post
+    public class PostReply
     {
         [Key]
         public int Id { get; set; }
@@ -16,9 +15,8 @@ namespace NSS_Overflow.Models
         public string UserId { get; set; }
         public User User { get; set; }
         [Required]
-        [GraphQLDescription("The ID of the parent thread")]
-        public int ThreadId { get; set; }
-        public QuestionThread Thread { get; set; }
-        public ICollection<PostReply> PostReplies { get; set; } = new List<PostReply>();
+        [GraphQLDescription("The ID of the parent post")]
+        public int PostReplyId { get; set; }
+        public Post Post { get; set; }
     }
 }

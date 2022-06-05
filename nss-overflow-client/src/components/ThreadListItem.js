@@ -4,7 +4,6 @@ import ReactTimeAgo from 'react-time-ago';
 import { NavLink } from 'react-router-dom';
 
 export default function ThreadListItem({ thread }) {
-  console.log(thread);
   return (
     <div className='thread-list-item'>
       <div className='thread-list-item-karma-container'>
@@ -14,7 +13,7 @@ export default function ThreadListItem({ thread }) {
         </ul>
       </div>
       <div className='thread-list-item-body'>
-        <NavLink to={`/${thread.id}`}>{thread.title}</NavLink>
+        <NavLink to={`/questions/${thread.id}`}>{thread.title}</NavLink>
         <div>
           {thread.threadTags
             ? thread.threadTags.map((index) => (
