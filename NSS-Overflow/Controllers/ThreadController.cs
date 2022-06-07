@@ -15,9 +15,9 @@ namespace NSS_Overflow.Controllers
         {
             _dbContext = dbContext;
         }
-
+        [Authorize]
         [HttpPost("Create")]
-        public async Task<IActionResult> PostAsync([FromHeader] string idToken, [FromBody] NewThread thread)
+        public async Task<IActionResult> PostThread([FromHeader] string idToken, [FromBody] NewThread thread)
         {
             FirebaseToken decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
             var uid = decoded.Uid;
@@ -72,6 +72,64 @@ namespace NSS_Overflow.Controllers
             }
 
             return Ok(newthreadId);
+        }
+
+        [Authorize]
+        [HttpPost("AddComment")]
+        public async Task<IActionResult> PostComment([FromHeader] string idToken, [FromBody] NewComment reply)
+        {
+            FirebaseToken decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
+            var uid = decoded.Uid;
+
+            PostReply newReply = new PostReply()
+            {
+                PostBody = reply.PostBody,
+                DatePosted = DateTime.Now,
+                UserId = uid,
+                PostReplyId = reply.PostReplyId
+            };
+
+            _dbContext.PostReplies.Add(newReply);
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("AddPost")]
+        public async Task<IActionResult> AddPost([FromHeader] string idToken, [FromBody] NewPost post)
+        {
+            FirebaseToken decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
+            var uid = decoded.Uid;
+
+            Post newPost = new Post()
+            {
+                PostBody = post.PostBody,
+                DatePosted = DateTime.Now,
+                UserId = uid,
+                ThreadId = post.ThreadId
+            };
+
+            _dbContext.Posts.Add(newPost);
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
         }
     }
 }

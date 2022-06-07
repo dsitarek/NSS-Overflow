@@ -4,6 +4,7 @@ import auth from './data/auth/firebaseConfig';
 import userExistsInDB from './data/userData';
 import { AppNavbar, SideNav } from './components/index';
 import { useNavigate } from 'react-router-dom';
+import footerLogo from './assets/NSSOverflowWhite2.png';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,10 +25,12 @@ function App() {
         };
         setUser(userObj);
         sessionStorage.setItem('idToken', authed.accessToken);
+        sessionStorage.setItem('user?', true);
         userExistsInDB(authed.accessToken);
       } else if (user || user === null) {
         setUser(false);
         sessionStorage.removeItem('idToken');
+        sessionStorage.setItem('user?', false);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,12 +45,15 @@ function App() {
           <Routes />
         </div>
         <button
-          className='btn btn-primary post-question-btn'
+          className='post-question-btn blue-btn'
           onClick={() => navigate('/askQuestion')}
         >
           Ask Question
         </button>
       </div>
+      <footer className='footer'>
+        <img className='footer-logo' src={footerLogo} alt='footerLogo' />
+      </footer>
     </div>
   );
 }

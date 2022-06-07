@@ -3,6 +3,11 @@ import databaseConfig from './auth/apiKeys';
 
 const dbURL = databaseConfig.GraphQLURL;
 
+/**
+ * Retrieves all tags.
+ * @async GraphQL Query
+ * @return {Array} Array of tag objects.
+ */
 const getAllTags = async () => {
   try {
     const res = await axios.post(
@@ -22,6 +27,11 @@ const getAllTags = async () => {
   }
 };
 
+/**
+ * Retrieves all tag titles.
+ * @async GraphQL Query
+ * @return {Array} Array of tag objects.
+ */
 const getCreateTags = async () => {
   try {
     const res = await axios.post(

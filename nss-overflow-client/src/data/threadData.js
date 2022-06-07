@@ -54,6 +54,11 @@ const getTagThreads = async (tag) => {
   }
 };
 
+/**
+ * Sends a POST to create a thread and initial post using values on the supplied thread object.
+ * @async
+ * @return {Number} ID of created thread.
+ */
 const createThread = async (thread) => {
   const token = sessionStorage.getItem('idToken');
   try {
@@ -66,6 +71,11 @@ const createThread = async (thread) => {
   }
 };
 
+/**
+ * Retrieves thread matching the specified ID.
+ * @async GraphQL Query
+ * @return {Object} Thread.
+ */
 const getThread = async (threadId) => {
   try {
     const res = await axios.post(
