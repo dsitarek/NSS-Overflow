@@ -37,7 +37,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className='page-container'>
       <AppNavbar user={user} />
       <div className='app-container'>
         <SideNav />

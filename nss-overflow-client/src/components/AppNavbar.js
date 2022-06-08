@@ -12,15 +12,35 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Input,
 } from 'reactstrap';
 import signInButton from '../assets/googleSignIn.png';
 import nssOverflowLogo from '../assets/NSSOverflowBlack.png';
-import messageIcon from '../assets/messageIcon.png';
+import { useNavigate } from 'react-router-dom';
+//import messageIcon from '../assets/messageIcon.png';
+
+const initialState = { searchInput: '' };
 
 export default function AppNavbar({ user }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState(initialState);
 
   const toggle = () => setIsOpen(!isOpen);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setSearch((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/questions/search/${search.searchInput}`);
+      setSearch(initialState);
+    }
+  };
 
   return (
     <div className='navbar-container'>
@@ -31,7 +51,17 @@ export default function AppNavbar({ user }) {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className='container-fluid' navbar>
-            <NavItem>SearchBarPH</NavItem>
+            <NavItem className='nav-search-container'>
+              <input
+                name='searchInput'
+                type='text'
+                placeholder='Search'
+                className='nav-search'
+                value={search.searchInput}
+                onChange={handleChange}
+                onKeyDown={handleSearch}
+              />
+            </NavItem>
             {user ? (
               <>
                 <UncontrolledDropdown nav inNavbar className='user-drop'>

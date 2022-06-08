@@ -11,9 +11,6 @@ export default function SideNav() {
         <li>
           <NavLink to='/tags'>Tags</NavLink>
         </li>
-        <li>
-          <NavLink to='/users'>Users</NavLink>
-        </li>
       </ul>
     </div>
   );

@@ -56,5 +56,14 @@ namespace NSS_Overflow.GraphQL
             var thread = context.Threads.Where(t => t.Id == threadId);
             return thread;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        [UseSorting]
+        public IQueryable<QuestionThread> GetSearchThread([ScopedService] AppDbContext context, string search)
+        {
+            var threads = context.Threads.Where(t => t.Title.Contains(search));
+            return threads;
+        }
     }
 }
