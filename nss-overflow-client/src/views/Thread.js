@@ -5,11 +5,12 @@ import { Post } from '../components/index';
 import ReactTimeAgo from 'react-time-ago';
 import { createComment, createPost } from '../data/postData';
 import ReactQuill from 'react-quill';
-import modules from '../quillModules';
+import { modules } from '../quillModules';
 
 export default function Thread() {
   const [thread, setThread] = useState({});
   const [editorPostText, seteditorPostText] = useState('');
+  const threadQuill = useRef();
 
   let { threadId } = useParams();
 
@@ -32,6 +33,7 @@ export default function Thread() {
         .then(setThread)
         .then(() => {
           seteditorPostText('');
+          threadQuill.current.editor.setText('');
         });
     });
   };
@@ -78,6 +80,7 @@ export default function Thread() {
             theme='snow'
             modules={modules}
             onChange={seteditorPostText}
+            ref={threadQuill}
           />
           <button className='submit-comment-btn blue-btn' onClick={submitPost}>
             Post Your Answer

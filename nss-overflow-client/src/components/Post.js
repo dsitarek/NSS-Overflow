@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { PostReply } from '../components/index';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import PropTypes from 'prop-types';
-import modules from '../quillModules';
+import { modules, bubbleModule } from '../quillModules';
 
 export default function Post({ post, submitComment }) {
   const [commentBoxActive, setCommentBoxActive] = useState(false);
   const [editorCommentText, seteditorCommentText] = useState('');
+  const postQuill = useRef();
 
   const addComment = (comment) => {
-    submitComment(comment).then(() => {
-      setCommentBoxActive(!commentBoxActive);
-      seteditorCommentText('');
-    });
+    submitComment(comment);
+    setCommentBoxActive(!commentBoxActive);
+    seteditorCommentText('');
+    postQuill.current.editor.setText('');
   };
 
   return (
@@ -23,6 +24,7 @@ export default function Post({ post, submitComment }) {
         theme='bubble'
         readOnly={true}
         value={post.postBody}
+        modules={bubbleModule}
       />
       <div className='post-info-container'>
         <div className='post-user-info'>
@@ -62,6 +64,7 @@ export default function Post({ post, submitComment }) {
                 theme='snow'
                 modules={modules}
                 onChange={seteditorCommentText}
+                ref={postQuill}
               />
               <button
                 className='submit-comment-btn blue-btn'
