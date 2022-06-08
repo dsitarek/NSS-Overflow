@@ -11,6 +11,7 @@ export default function Home() {
 
   return (
     <div className='home-thread-container'>
+      <span className='home-title-span'>Newest Questions</span>
       {threads.map((thread) => (
         <ThreadListItem key={thread.id} thread={thread} />
       ))}

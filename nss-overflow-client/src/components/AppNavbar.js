@@ -62,7 +62,7 @@ export default function AppNavbar({ user }) {
                 </button>
               </>
             )}
-            <NavItem>
+            {/* <NavItem>
               <NavLink href='/'>
                 <img
                   className='nav-message-icon'
@@ -70,7 +70,7 @@ export default function AppNavbar({ user }) {
                   alt='message-icon'
                 />
               </NavLink>
-            </NavItem>
+            </NavItem> */}
           </Nav>
         </Collapse>
       </Navbar>

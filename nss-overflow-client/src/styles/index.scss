@@ -1,35 +1,62 @@
 $backgroundGray: #f8f9f9;
 $backgroundOrange: #ffa6002f;
 $nssOrange: #ffa500;
-$borderGray: rgba(173, 173, 173, 0.548);
+$borderGray: #e3e6e8;
 
 body {
   background-color: white !important;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .app-container {
-  margin-top: 5em;
   display: grid;
   grid-template-columns: auto 8em 50% auto;
   width: 100%;
+  min-height: 100%;
   .post-question-btn {
     grid-column-start: 4;
-    height: 2.5em;
+    margin: 5em auto 1em 0;
     width: 8em;
-    margin-left: 1em;
-    margin-right: auto;
-    border-radius: 2px;
-    background-color: #0a95ff;
-    font-size: 0.9em;
+  }
+
+  .post-question-btn:hover {
+  }
+}
+
+.footer {
+  background-color: #232629;
+  height: 6em;
+
+  .footer-logo {
+    margin-top: 0.5em;
   }
 }
 
 .main-container {
   grid-column-start: 3;
+  border-left: 1px solid $borderGray;
+  padding: 5em 0 5em 0;
+  min-height: 100%;
 }
 
 .ql-container {
-  font-size: 1em !important;
+  font-size: 0.98em !important;
+}
+
+.blue-btn {
+  height: 2.75em;
+  border: 1px transparent;
+  border-radius: 2px;
+  background-color: #0a95ff;
+  font-size: 0.9em;
+  box-shadow: 0 -1px 2px #6cc0ff;
+  color: white;
+  text-shadow: 1px 1px 1px gray;
+  font-size: 0.8em;
+}
+
+.blue-btn:hover {
+  background-color: #0673c7;
 }
 
 //Navbar
@@ -122,18 +149,20 @@ body {
 .side-nav {
   margin-left: 10%;
   position: sticky;
+  top: 5em;
   grid-column-start: 2;
   min-width: 0;
+  height: 10em;
   ul {
     list-style: none;
     line-height: 2;
   }
   a {
     text-decoration: none;
-    color: black;
+    color: #797e84;
+    font-size: 0.9em;
   }
   A:hover {
-    text-decoration: underline;
     color: $nssOrange;
   }
 }
@@ -142,6 +171,13 @@ body {
 .home-thread-container {
   display: flex;
   flex-direction: column;
+
+  .home-title-span {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #3b404a;
+    margin: -0.75em 0 1em 1em;
+  }
 }
 
 //ThreadListItem
@@ -183,16 +219,18 @@ body {
 
   .thread-posted-by-span {
     grid-column-start: 3;
-    grid-row-start: 3;
+    grid-row-start: 2;
     font-style: italic;
     color: gray;
     font-size: 0.8em;
     margin: 0 0 0 auto;
+    padding-right: 0.5em;
 
     img {
       width: 1.5em;
       border: 1px transparent;
       border-radius: 3px;
+      margin-right: 0.25em;
     }
   }
 }
@@ -229,13 +267,20 @@ body {
 }
 //AskQuestion
 
-//Thread
+//Thread and Posts
 .thread-container {
+  padding-left: 1.5em;
   .thread-head {
     border-bottom: 1px solid rgba(173, 173, 173, 0.548);
     width: 100%;
     margin-bottom: 0.5em;
     font-size: 0.8em;
+
+    .thread-title {
+      font-size: 2.1em;
+      font-weight: 400;
+      color: #3b404a;
+    }
 
     .thread-title-tags {
       display: flex;
@@ -261,7 +306,7 @@ body {
   }
   .post-container {
     display: grid;
-    grid-template-columns: 10% auto 50%;
+    grid-template-columns: 5% auto 30%;
     grid-template-rows: auto auto auto;
     border-bottom: 1px solid $borderGray;
 
@@ -302,9 +347,9 @@ body {
 
     .post-reply-container {
       grid-column-start: 2;
-      grid-column-end: 3;
+      grid-column-end: 4;
       grid-row-start: 3;
-      margin: 2em 0 0 0;
+      margin: 2em 0 0 2em;
 
       li:first-child {
         border-top: 1px solid $borderGray;
@@ -317,12 +362,47 @@ body {
         font-size: 0.8em;
       }
 
+      .open-comment-btn {
+        background: transparent;
+        border: none;
+        color: gray;
+      }
+
+      .open-comment-btn.inactive {
+        display: none;
+      }
+
+      .comment-quill.inactive {
+        display: none;
+      }
+
+      .submit-comment-btn {
+        margin-top: 0.25em;
+        border: 1px solid darkgray;
+        border-radius: 3px;
+        box-shadow: none;
+      }
+
       .post-reply {
+        display: flex;
+        line-height: 1.2em;
+
         .post-reply-body {
+          .quill.post-body {
+            margin: 0;
+          }
+          .ql-editor {
+            max-width: auto;
+            padding: 0;
+          }
+          .ql-container {
+            padding: 0;
+          }
         }
 
         .post-reply-user {
           font-weight: bold;
+          margin-left: 0.5em;
 
           .post-reply-date {
             color: gray;
@@ -331,6 +411,23 @@ body {
             font-weight: normal;
           }
         }
+      }
+    }
+  }
+
+  .thread-add-post-editor {
+    margin: 3em 0 5em 0;
+
+    .editor-title {
+      font-size: 1.2em;
+    }
+
+    .editor {
+      margin-top: 1em;
+
+      .submit-comment-btn {
+        margin-top: 0.5em;
+        width: 10em;
       }
     }
   }

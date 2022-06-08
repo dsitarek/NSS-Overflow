@@ -28,7 +28,7 @@ export default function ThreadListItem({ thread }) {
         </div>
       </div>
       <span className='thread-posted-by-span'>
-        Posted by: <img src={thread.user.avatar} alt='user-profile-img' />
+        <img src={thread.user.avatar} alt='user-profile-img' />
         {thread.user.username}{' '}
         <ReactTimeAgo date={new Date(thread.datePosted)} locale='en-US' />
       </span>
