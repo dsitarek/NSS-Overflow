@@ -6,6 +6,8 @@ import ReactTimeAgo from 'react-time-ago';
 import { createComment, createPost } from '../data/postData';
 import ReactQuill from 'react-quill';
 import { modules } from '../quillModules';
+import { signInUser } from '../data/auth/firebaseSignInOut';
+import signInButton from '../assets/googleSignIn.png';
 
 export default function Thread() {
   const [thread, setThread] = useState({});
@@ -16,6 +18,7 @@ export default function Thread() {
 
   useEffect(() => {
     getThread(threadId).then(setThread);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submitComment = (commentObj) => {
@@ -82,9 +85,25 @@ export default function Thread() {
             onChange={seteditorPostText}
             ref={threadQuill}
           />
-          <button className='submit-comment-btn blue-btn' onClick={submitPost}>
-            Post Your Answer
-          </button>
+          {sessionStorage.getItem('user?') ? (
+            <button
+              className='submit-comment-btn blue-btn'
+              onClick={submitPost}
+            >
+              Post Your Answer
+            </button>
+          ) : (
+            <>
+              Sign in to post your answer.{' '}
+              <button
+                type='button'
+                className='login-btn-container'
+                onClick={signInUser}
+              >
+                <img className='login-btn' src={signInButton} alt='sign in' />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

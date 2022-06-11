@@ -12,7 +12,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Input,
 } from 'reactstrap';
 import signInButton from '../assets/googleSignIn.png';
 import nssOverflowLogo from '../assets/NSSOverflowBlack.png';
@@ -37,7 +36,8 @@ export default function AppNavbar({ user }) {
 
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
-      navigate(`/questions/search/${search.searchInput}`);
+      const encodedSearch = encodeURIComponent(search.searchInput);
+      navigate(`/questions/search/${encodedSearch}`);
       setSearch(initialState);
     }
   };
@@ -92,7 +92,8 @@ export default function AppNavbar({ user }) {
                 </button>
               </>
             )}
-            {/* <NavItem>
+            {/* Icon for future messaging feature
+            <NavItem>
               <NavLink href='/'>
                 <img
                   className='nav-message-icon'

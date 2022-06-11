@@ -11,8 +11,10 @@ export default function Tags() {
 
   return (
     <div className='tag-page-container'>
-      <h3>Tags</h3>
-      <p>Use these tag categories to find questions matching your needs.</p>
+      <div className='tag-header'>
+        <span className='tag-title-span'>Tags</span>
+        <p>Use these tag categories to find questions matching your needs.</p>
+      </div>
       <div className='tag-container'>
         {tags ? tags.map((tag) => <TagCard key={tag.id} tag={tag} />) : ''}
       </div>

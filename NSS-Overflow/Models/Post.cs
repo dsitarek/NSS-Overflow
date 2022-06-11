@@ -19,6 +19,7 @@ namespace NSS_Overflow.Models
         [GraphQLDescription("The ID of the parent thread")]
         public int ThreadId { get; set; }
         public QuestionThread Thread { get; set; }
+        [GraphQLDescription("A list of replies to the post")]
         public ICollection<PostReply> PostReplies { get; set; } = new List<PostReply>();
     }
 }

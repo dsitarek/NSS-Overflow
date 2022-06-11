@@ -226,6 +226,7 @@ body {
     grid-row-start: 2;
     padding: 0.1em;
     border-radius: 4px;
+    font-size: 0.75em;
   }
 
   .thread-posted-by-span {
@@ -251,6 +252,14 @@ body {
   margin-top: 5em;
   display: flex;
   flex-wrap: wrap;
+}
+.tag-header {
+  margin-left: 1em;
+  .tag-title-span {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #3b404a;
+  }
 }
 
 //TagCard

@@ -2,6 +2,7 @@
 
 namespace NSS_Overflow.Models
 {
+    [GraphQLDescription("Represents a comment on an answer in a thread")]
     public class PostReply
     {
         [Key]
