@@ -8,8 +8,9 @@ export default function ThreadListItem({ thread }) {
     <div className='thread-list-item'>
       <div className='thread-list-item-karma-container'>
         <ul>
+          {/* for future karma feature 
           <li>votes</li>
-          <li>answers</li>
+          <li>answers</li> */}
         </ul>
       </div>
       <div className='thread-list-item-body'>

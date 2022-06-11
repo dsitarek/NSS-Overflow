@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { getTagThreads } from '../data/threadData';
+import { getSearchThreads } from '../data/threadData';
 import { ThreadListItem } from '../components/index';
 import { useParams } from 'react-router-dom';
 
-export default function TagQuestions() {
+export default function Search() {
   const [threads, setThreads] = useState([]);
 
-  let { selectedTag } = useParams();
+  let { search } = useParams();
 
   useEffect(() => {
-    getTagThreads(selectedTag).then(setThreads);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getSearchThreads(search).then(setThreads);
+  }, [search]);
 
   return (
     <div className='home-thread-container'>
-      <h3>{selectedTag} Questions</h3>
+      <h3>Search Results for: "{search}"</h3>
       {threads.map((thread) => (
         <ThreadListItem key={thread.id} thread={thread} />
       ))}

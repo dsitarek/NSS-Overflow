@@ -1,5 +1,6 @@
 ﻿namespace NSS_Overflow.Models
 {
+    [GraphQLDescription("Represents a tag belonging to a thread")]
     public class ThreadTag
     {
         public int ThreadId { get; set; }

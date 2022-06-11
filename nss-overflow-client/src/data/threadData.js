@@ -35,7 +35,6 @@ const getNewestThreads = async () => {
  * @return {Array} Array of Thread objects.
  */
 const getTagThreads = async (tag) => {
-  console.log(tag);
   try {
     const res = await axios.post(
       gqlURL,
@@ -49,6 +48,30 @@ const getTagThreads = async (tag) => {
       }
     );
     return res.data.data.threadsByTag.map((item) => item.thread);
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};
+
+/**
+ * Retrieves threads matching the specified tag category.
+ * @async GraphQL Query
+ * @return {Array} Array of Thread objects.
+ */
+const getSearchThreads = async (search) => {
+  try {
+    const res = await axios.post(
+      gqlURL,
+      {
+        query: `query { searchThread(search: "${search}"){ id title datePosted threadTags { tag { tagTitle } } user { username avatar } posts { id postBody datePosted threadId user { username avatar } postReplies { id postBody datePosted user { username avatar } } } } }`,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return res.data.data.searchThread;
   } catch (error) {
     console.log(error.response.data);
   }
@@ -95,4 +118,10 @@ const getThread = async (threadId) => {
   }
 };
 
-export { getNewestThreads, getTagThreads, createThread, getThread };
+export {
+  getNewestThreads,
+  getTagThreads,
+  createThread,
+  getThread,
+  getSearchThreads,
+};

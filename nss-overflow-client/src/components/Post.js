@@ -45,7 +45,7 @@ export default function Post({ post, submitComment }) {
               ))
             : ''}
           <li>
-            {sessionStorage.getItem('idToken') ? (
+            {sessionStorage.getItem('user?') ? (
               <button
                 className={`open-comment-btn ${
                   commentBoxActive ? 'inactive' : ''

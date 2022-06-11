@@ -30,14 +30,14 @@ function App() {
       } else if (user || user === null) {
         setUser(false);
         sessionStorage.removeItem('idToken');
-        sessionStorage.setItem('user?', false);
+        sessionStorage.removeItem('user?');
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
+    <div className='page-container'>
       <AppNavbar user={user} />
       <div className='app-container'>
         <SideNav />
