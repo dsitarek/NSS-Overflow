@@ -35,6 +35,7 @@ export default function AppNavbar({ user }) {
     }));
   };
 
+  //Since the search will be retrieved by useParams(), it will be encoded to maintain invalid characters.
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
       const encodedSearch = encodeURIComponent(search.searchInput);

@@ -12,14 +12,21 @@ import signInButton from '../assets/googleSignIn.png';
 export default function Thread() {
   const [thread, setThread] = useState({});
   const [editorPostText, seteditorPostText] = useState('');
+
+  //ReactQuill is using a ref so that it can be accessed and the editor's text cleared after a user submission.
   const threadQuill = useRef();
 
   let { threadId } = useParams();
 
   useEffect(() => {
-    getThread(threadId).then(setThread);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getThread(threadId).then((threadObj) => {
+      if (threadObj !== null) setThread(threadObj);
+      else
+        return (
+          <span className='thread-not-exist-span'>Thread does not exist!</span>
+        );
+    });
+  }, [threadId]);
 
   const submitComment = (commentObj) => {
     createComment(commentObj).then(() => getThread(threadId).then(setThread));

@@ -21,13 +21,12 @@ function App() {
         sessionStorage.setItem('idToken', authed.accessToken);
         sessionStorage.setItem('user?', true);
         userExistsInDB(authed.accessToken);
-      } else if (user || user === null) {
+      } else if (authed === null) {
         setUser(false);
         sessionStorage.removeItem('idToken');
         sessionStorage.removeItem('user?');
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

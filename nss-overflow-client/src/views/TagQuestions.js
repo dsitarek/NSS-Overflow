@@ -10,8 +10,7 @@ export default function TagQuestions() {
 
   useEffect(() => {
     getTagThreads(selectedTag).then(setThreads);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedTag]);
 
   return (
     <div className='home-thread-container'>
