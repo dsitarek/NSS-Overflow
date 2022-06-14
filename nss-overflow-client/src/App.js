@@ -13,15 +13,9 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged(async (authed) => {
       if (authed) {
-        const isAdmin = await authed
-          .getIdTokenResult()
-          .then((idTokenResult) => idTokenResult.claims.admin);
         const userObj = {
-          uid: authed.uid,
-          fullName: authed.displayName,
           profilePic: authed.photoURL,
           username: authed.email.split('@')[0],
-          isAdmin,
         };
         setUser(userObj);
         sessionStorage.setItem('idToken', authed.accessToken);

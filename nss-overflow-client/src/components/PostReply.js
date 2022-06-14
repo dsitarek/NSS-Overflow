@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import ReactQuill from 'react-quill';
+import PropTypes from 'prop-types';
 
 export default function PostReply({ reply }) {
   return (
@@ -25,3 +26,15 @@ export default function PostReply({ reply }) {
     </li>
   );
 }
+
+PostReply.propTypes = {
+  reply: PropTypes.shape({
+    datePosted: PropTypes.string,
+    id: PropTypes.number,
+    postBody: PropTypes.string,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      avatar: PropTypes.string,
+    }),
+  }),
+};

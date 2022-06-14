@@ -104,4 +104,5 @@ Post.propTypes = {
       })
     ),
   }),
+  submitComment: PropTypes.func,
 };
