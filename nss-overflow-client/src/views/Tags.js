@@ -12,7 +12,7 @@ export default function Tags() {
   return (
     <div className='tag-page-container'>
       <div className='tag-header'>
-        <span className='tag-title-span'>Tags</span>
+        <span className='tag-head-span'>Tags</span>
         <p>Use these tag categories to find questions matching your needs.</p>
       </div>
       <div className='tag-container'>

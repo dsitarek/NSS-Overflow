@@ -13,27 +13,20 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged(async (authed) => {
       if (authed) {
-        const isAdmin = await authed
-          .getIdTokenResult()
-          .then((idTokenResult) => idTokenResult.claims.admin);
         const userObj = {
-          uid: authed.uid,
-          fullName: authed.displayName,
           profilePic: authed.photoURL,
           username: authed.email.split('@')[0],
-          isAdmin,
         };
         setUser(userObj);
         sessionStorage.setItem('idToken', authed.accessToken);
         sessionStorage.setItem('user?', true);
         userExistsInDB(authed.accessToken);
-      } else if (user || user === null) {
+      } else if (authed === null) {
         setUser(false);
         sessionStorage.removeItem('idToken');
         sessionStorage.removeItem('user?');
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

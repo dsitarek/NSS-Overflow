@@ -16,6 +16,7 @@ import {
 import signInButton from '../assets/googleSignIn.png';
 import nssOverflowLogo from '../assets/NSSOverflowBlack.png';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 //import messageIcon from '../assets/messageIcon.png';
 
 const initialState = { searchInput: '' };
@@ -34,6 +35,7 @@ export default function AppNavbar({ user }) {
     }));
   };
 
+  //Since the search will be retrieved by useParams(), it will be encoded to maintain invalid characters.
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
       const encodedSearch = encodeURIComponent(search.searchInput);
@@ -108,3 +110,10 @@ export default function AppNavbar({ user }) {
     </div>
   );
 }
+
+AppNavbar.propTypes = {
+  user: PropTypes.shape({
+    user: PropTypes.string,
+    profilePic: PropTypes.string,
+  }),
+};

@@ -8,6 +8,8 @@ import { modules, bubbleModule } from '../quillModules';
 export default function Post({ post, submitComment }) {
   const [commentBoxActive, setCommentBoxActive] = useState(false);
   const [editorCommentText, seteditorCommentText] = useState('');
+
+  //ReactQuill is using a ref so that it can be accessed and the editor's text cleared after a user submission.
   const postQuill = useRef();
 
   const addComment = (comment) => {
@@ -104,4 +106,5 @@ Post.propTypes = {
       })
     ),
   }),
+  submitComment: PropTypes.func,
 };
