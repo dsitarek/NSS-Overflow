@@ -337,6 +337,27 @@ body {
     grid-template-rows: auto auto auto;
     border-bottom: 1px solid $borderGray;
 
+    .post-karma-container {
+      display: flex;
+      flex-direction: column;
+      grid-row: 1;
+      grid-column-start: 1;
+      align-self: center;
+
+      .post-karma-total {
+        align-self: center;
+        font-weight: 500;
+      }
+      button {
+        background-color: transparent;
+        border: none;
+        .karma-btn-img {
+          width: 2em;
+          padding: 0.5em 0 0.5em 0;
+        }
+      }
+    }
+
     .post-body {
       grid-row: 1;
       grid-column-start: 2;
@@ -356,14 +377,32 @@ body {
         padding: 0.25em;
         width: fit-content;
 
+        .user-details-container {
+          display: flex;
+
+          .user-details {
+            display: flex;
+            flex-direction: column;
+
+            .username-span {
+              font-size: 0.8em;
+            }
+
+            .karma-span {
+              font-size: 0.8em;
+              font-weight: bold;
+              margin-left: 0.5em;
+              img {
+                width: 0.8em;
+              }
+            }
+          }
+        }
+
         .post-date-span {
           color: gray;
           font-size: 0.8em;
           font-style: italic;
-        }
-
-        .username-span {
-          font-size: 0.8em;
         }
       }
       img {

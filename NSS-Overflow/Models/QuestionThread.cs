@@ -13,6 +13,7 @@ namespace NSS_Overflow.Models
         public DateTime DatePosted { get; set; }
         public DateTime? LastEdited { get; set; }
         [Required]
+        [GraphQLIgnore]
         public string UserId { get; set; }
         public User User { get; set; }
         public ICollection<Post> Posts { get; set; } = new List<Post>();

@@ -104,7 +104,7 @@ const getThread = async (threadId) => {
     const res = await axios.post(
       gqlURL,
       {
-        query: `query { singleThread(threadId: ${threadId}) { id title datePosted threadTags { tag { tagTitle } } user { username avatar } posts { id postBody datePosted threadId user { username avatar } postReplies { id postBody datePosted user { username avatar } } } } }`,
+        query: `query { singleThread(threadId: ${threadId}) { id title datePosted threadTags { tag { tagTitle } } user { username avatar karma } posts { id postBody datePosted threadId postVoteTotal userVoted postKarmaList { vote } user { username avatar karma } postReplies { id postBody datePosted user { username avatar } } } } }`,
       },
       {
         headers: {

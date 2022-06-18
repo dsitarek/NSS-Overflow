@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 export default function TagCard({ tag }) {
+  //Since the tag name will be retrieved by useParams(), it will be encoded to maintain invalid characters.
   const tagSearch = encodeURIComponent(tag.tagTitle);
   const navigate = useNavigate();
   return (
