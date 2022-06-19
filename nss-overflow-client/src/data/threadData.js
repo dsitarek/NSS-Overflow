@@ -15,7 +15,7 @@ const getNewestThreads = async () => {
       gqlURL,
       {
         query:
-          'query { thread(order: { datePosted: DESC }, first: 10) { edges { node { id title datePosted threadTags{ tag { tagTitle } } user{ username avatar } } } } }',
+          'query { thread(order: { datePosted: DESC }, first: 10) { edges { node { id title datePosted threadKarma answerCount posts { postVoteTotal postKarmaList { vote } } threadTags{ tag { tagTitle } } user{ username avatar } } } } }',
       },
       {
         headers: {
@@ -39,7 +39,7 @@ const getTagThreads = async (tag) => {
     const res = await axios.post(
       gqlURL,
       {
-        query: `query { threadsByTag(tag: "${tag}"){ tagId thread { id title datePosted threadTags{ tag { tagTitle } } user{ username avatar } } } }`,
+        query: `query { threadsByTag(tag: "${tag}"){ tagId thread { id title datePosted threadKarma answerCount posts { postVoteTotal postKarmaList { vote } } threadTags{ tag { tagTitle } } user{ username avatar } } } }`,
       },
       {
         headers: {
@@ -63,7 +63,7 @@ const getSearchThreads = async (search) => {
     const res = await axios.post(
       gqlURL,
       {
-        query: `query { searchThread(search: "${search}"){ id title datePosted threadTags { tag { tagTitle } } user { username avatar } posts { id postBody datePosted threadId user { username avatar } postReplies { id postBody datePosted user { username avatar } } } } }`,
+        query: `query { searchThread(search: "${search}"){ id title datePosted threadKarma answerCount posts { postVoteTotal postKarmaList { vote } } threadTags { tag { tagTitle } } user { username avatar } posts { id postBody datePosted threadId user { username avatar } postReplies { id postBody datePosted user { username avatar } } } } }`,
       },
       {
         headers: {

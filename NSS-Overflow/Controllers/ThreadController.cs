@@ -142,6 +142,11 @@ namespace NSS_Overflow.Controllers
             string postUserId = _dbContext.Posts?.FirstOrDefault(p => p.Id == vote.PostId).UserId;
             string postUserName = _dbContext.Users.FirstOrDefault(u => u.UserId == postUserId).Username;
 
+            if(postUserId == uid)
+            { 
+                return Ok("Cannot vote on your own post"); 
+            }
+
             if (voteExists == null)
             {
                 PostKarma newVote = new PostKarma()
