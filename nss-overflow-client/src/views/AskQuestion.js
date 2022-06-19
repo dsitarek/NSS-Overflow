@@ -38,12 +38,13 @@ export default function AskQuestion() {
   };
 
   return (
-    <div>
+    <div className='ask-container'>
       <Form>
         <FormGroup>
           <Label for='titleInput'>Title</Label>
           <Input
             id='titleInput'
+            className='ask-input'
             name='Title'
             placeholder='Enter a title for your question'
             type='text'
@@ -63,7 +64,13 @@ export default function AskQuestion() {
           onChange={(v) => (v.length < 4 ? setSelectedTags(v) : null)}
           isMulti={true}
         />
-        <Button onClick={() => submitQuestion(editorText)}>Submit</Button>
+        <button
+          className='ask-submit-btn blue-btn'
+          type='button'
+          onClick={() => submitQuestion(editorText)}
+        >
+          Submit
+        </button>
       </Form>
     </div>
   );

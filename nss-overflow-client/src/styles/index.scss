@@ -502,3 +502,14 @@ body {
     }
   }
 }
+
+.ask-container {
+  margin: 0 1em 0 1em;
+  .ask-input {
+    border-radius: 0;
+  }
+  .ask-submit-btn {
+    margin-top: 1em;
+    padding: 0 1em 0 1em;
+  }
+}
