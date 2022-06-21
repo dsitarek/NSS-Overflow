@@ -4,8 +4,12 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import PropTypes from 'prop-types';
 import { modules, bubbleModule } from '../quillModules';
+import grayUpvote from '../assets/grayUpArrow.png';
+import grayDownvote from '../assets/grayDownArrow.png';
+import orangeUpvote from '../assets/orangeUpArrow.png';
+import orangeDownvote from '../assets/orangeDownArrow.png';
 
-export default function Post({ post, submitComment }) {
+export default function Post({ post, submitComment, submitVote }) {
   const [commentBoxActive, setCommentBoxActive] = useState(false);
   const [editorCommentText, seteditorCommentText] = useState('');
 
@@ -19,8 +23,34 @@ export default function Post({ post, submitComment }) {
     postQuill.current.editor.setText('');
   };
 
+  const addVote = (vote) => {
+    const voteObj = {
+      postId: post.id,
+      vote,
+    };
+
+    submitVote(voteObj);
+  };
+
   return (
     <div className='post-container'>
+      <div className='post-karma-container'>
+        <button className='upvote-btn' onClick={() => addVote(1)}>
+          <img
+            className='karma-btn-img'
+            src={post.userVoted === 1 ? orangeUpvote : grayUpvote}
+            alt='grayUpArrow'
+          />
+        </button>
+        <span className='post-karma-total'>{post.postVoteTotal}</span>
+        <button className='downvoteBtn' onClick={() => addVote(-1)}>
+          <img
+            className='karma-btn-img'
+            src={post.userVoted === -1 ? orangeDownvote : grayDownvote}
+            alt='grayDownArrow'
+          />
+        </button>
+      </div>
       <ReactQuill
         className='post-body'
         theme='bubble'
@@ -33,9 +63,15 @@ export default function Post({ post, submitComment }) {
           <span className='post-date-span'>
             Posted {new Date(post.datePosted).toLocaleString()}
           </span>
-          <div>
+          <div className='user-details-container'>
             <img src={post.user.avatar} alt='user-profile-img' />
-            <span className='username-span'>{post.user.username}</span>
+            <div className='user-details'>
+              <span className='username-span'>{post.user.username}</span>
+              <span className='karma-span'>
+                <img src={orangeUpvote} alt='karma-img' />
+                {post.user.karma}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -94,6 +130,7 @@ Post.propTypes = {
     idToken: PropTypes.number,
     postBody: PropTypes.string,
     threadId: PropTypes.number,
+    postVoteTotal: PropTypes.number,
     postReplies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,

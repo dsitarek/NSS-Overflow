@@ -115,10 +115,57 @@ namespace NSS_Overflow.Controllers
                 PostBody = post.PostBody,
                 DatePosted = DateTime.Now,
                 UserId = uid,
-                ThreadId = post.ThreadId
+                ThreadId = post.ThreadId,
             };
 
             _dbContext.Posts.Add(newPost);
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("votePost")]
+        public async Task<IActionResult> VotePost([FromHeader] string idToken, [FromBody] PostKarma vote)
+        {
+            FirebaseToken decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
+            var uid = decoded.Uid;
+            var voteExists = _dbContext.PostKarma.FirstOrDefault(p => p.UserId == uid && p.PostId == vote.PostId);
+            string postUserId = _dbContext.Posts?.FirstOrDefault(p => p.Id == vote.PostId).UserId;
+            string postUserName = _dbContext.Users.FirstOrDefault(u => u.UserId == postUserId).Username;
+
+            if(postUserId == uid)
+            { 
+                return Ok("Cannot vote on your own post"); 
+            }
+
+            if (voteExists == null)
+            {
+                PostKarma newVote = new PostKarma()
+                {
+                    UserId = uid,
+                    PostId = vote.PostId,
+                    Vote = vote.Vote,
+                    PostUsername = postUserName,
+                };
+
+                _dbContext.PostKarma.Add(newVote);
+            }
+
+            if (voteExists != null)
+            {
+                int? voteT = voteExists.Vote + vote.Vote;
+                voteExists.Vote = voteT == 0 ? 0 : voteT > 0 ? 1 : -1;
+
+            }
 
             try
             {

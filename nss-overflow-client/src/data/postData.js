@@ -35,4 +35,20 @@ const createPost = async (post) => {
   }
 };
 
-export { createComment, createPost };
+/**
+ * Sends a POST to create a Post vote on the specified thread.
+ * @async
+ * @return {void}
+ */
+const votePost = async (postVoteObj) => {
+  const token = sessionStorage.getItem('idToken');
+  try {
+    await axios.post(`${dbURL}/Thread/votePost`, postVoteObj, {
+      headers: { Authorization: 'Bearer ' + token, idToken: token },
+    });
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};
+
+export { createComment, createPost, votePost };

@@ -7,6 +7,7 @@ import { createThread } from '../data/threadData';
 import { getCreateTags } from '../data/tagData';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { modules } from '../quillModules';
 
 export default function AskQuestion() {
   const [title, setTitle] = useState({ input: '' });
@@ -19,21 +20,6 @@ export default function AskQuestion() {
   }, []);
 
   const navigate = useNavigate();
-
-  const modules = {
-    toolbar: [
-      [{ size: ['normal', 'small', 'large', 'huge'] }],
-      [{ color: [] }],
-      ['code'],
-      ['bold', 'italic'],
-      ['blockquote', 'link'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-    ],
-
-    clipboard: {
-      matchVisual: false,
-    },
-  };
 
   const handleTitleChange = (e) => {
     setTitle(() => ({ input: e.target.value }));
@@ -52,12 +38,13 @@ export default function AskQuestion() {
   };
 
   return (
-    <div>
+    <div className='ask-container'>
       <Form>
         <FormGroup>
           <Label for='titleInput'>Title</Label>
           <Input
             id='titleInput'
+            className='ask-input'
             name='Title'
             placeholder='Enter a title for your question'
             type='text'
@@ -77,7 +64,13 @@ export default function AskQuestion() {
           onChange={(v) => (v.length < 4 ? setSelectedTags(v) : null)}
           isMulti={true}
         />
-        <Button onClick={() => submitQuestion(editorText)}>Submit</Button>
+        <button
+          className='ask-submit-btn blue-btn'
+          type='button'
+          onClick={() => submitQuestion(editorText)}
+        >
+          Submit
+        </button>
       </Form>
     </div>
   );

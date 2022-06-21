@@ -3,7 +3,7 @@ import { getThread } from '../data/threadData';
 import { useParams } from 'react-router-dom';
 import { Post } from '../components/index';
 import ReactTimeAgo from 'react-time-ago';
-import { createComment, createPost } from '../data/postData';
+import { createComment, createPost, votePost } from '../data/postData';
 import ReactQuill from 'react-quill';
 import { modules } from '../quillModules';
 import { signInUser } from '../data/auth/firebaseSignInOut';
@@ -30,6 +30,10 @@ export default function Thread() {
 
   const submitComment = (commentObj) => {
     createComment(commentObj).then(() => getThread(threadId).then(setThread));
+  };
+
+  const submitVote = (voteObj) => {
+    votePost(voteObj).then(() => getThread(threadId).then(setThread));
   };
 
   const submitPost = () => {
@@ -79,6 +83,7 @@ export default function Thread() {
               key={`${post.id}`}
               post={post}
               submitComment={submitComment}
+              submitVote={submitVote}
             />
           ))
         : ''}

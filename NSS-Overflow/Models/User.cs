@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NSS_Overflow.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace NSS_Overflow.Models
 
@@ -18,6 +19,8 @@ namespace NSS_Overflow.Models
         public ICollection<QuestionThread> Threads { get; set; }
         public ICollection<Post> Posts { get; set; }
         public ICollection<PostReply> PostReplies { get; set; }
+        [UseDbContext(typeof(AppDbContext))]
+        public int? Karma([ScopedService] AppDbContext context) => context.PostKarma?.Where(p => p.PostUsername == Username).Sum(p => p.Vote) ?? 0;
 
     }
 }

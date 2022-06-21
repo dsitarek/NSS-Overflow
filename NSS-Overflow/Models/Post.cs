@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NSS_Overflow.Models
 {
@@ -13,6 +14,7 @@ namespace NSS_Overflow.Models
         public DateTime DatePosted { get; set; }
         public DateTime? LastEdited { get; set; }
         [Required]
+        [GraphQLIgnore]
         public string UserId { get; set; }
         public User User { get; set; }
         [Required]
@@ -21,5 +23,9 @@ namespace NSS_Overflow.Models
         public QuestionThread Thread { get; set; }
         [GraphQLDescription("A list of replies to the post")]
         public ICollection<PostReply> PostReplies { get; set; } = new List<PostReply>();
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int? PostVoteTotal => PostKarmaList?.Sum(p => p.Vote.GetValueOrDefault(0)) ?? 0;
+        public int? userVoted => PostKarmaList?.FirstOrDefault(p => p.UserId == UserId)?.Vote ?? 0;
+        public ICollection<PostKarma>? PostKarmaList { get; set; }
     }
 }

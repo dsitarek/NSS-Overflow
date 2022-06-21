@@ -8,9 +8,8 @@ export default function ThreadListItem({ thread }) {
     <div className='thread-list-item'>
       <div className='thread-list-item-karma-container'>
         <ul>
-          {/* for future karma feature 
-          <li>votes</li>
-          <li>answers</li> */}
+          <li>{thread.threadKarma} votes</li>
+          <li>{thread.answerCount} answers</li>
         </ul>
       </div>
       <div className='thread-list-item-body'>
@@ -42,6 +41,18 @@ ThreadListItem.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     datePosted: PropTypes.string,
+    answerCount: PropTypes.number,
+    threadKarma: PropTypes.number,
+    posts: PropTypes.arrayOf(
+      PropTypes.shape({
+        postVoteTotal: PropTypes.number,
+        postKarmaList: PropTypes.arrayOf(
+          PropTypes.shape({
+            vote: PropTypes.number,
+          })
+        ),
+      })
+    ),
     threadTags: PropTypes.arrayOf(
       PropTypes.shape({
         tag: PropTypes.shape({

@@ -15,6 +15,7 @@ namespace NSS_Overflow.Data
         public DbSet<User> Users { get; set; }
         public DbSet<ThreadTag> ThreadTags { get; set; }
         public DbSet<PostReply> PostReplies { get; set; }
+        public DbSet<PostKarma> PostKarma { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +24,7 @@ namespace NSS_Overflow.Data
             modelBuilder.Entity<Post>().HasOne(p => p.Thread).WithMany(t => t.Posts).HasForeignKey(p => p.ThreadId);
             modelBuilder.Entity<Post>().HasOne(t => t.User).WithMany(u => u.Posts).HasForeignKey(t => t.UserId).HasPrincipalKey(u => u.UserId);
             modelBuilder.Entity<Post>().HasMany(t => t.PostReplies).WithOne(p => p.Post).HasForeignKey(p => p.PostReplyId);
+            modelBuilder.Entity<Post>().HasMany(t => t.PostKarmaList).WithOne(p => p.Post).HasForeignKey(p => p.PostId);
             modelBuilder.Entity<ThreadTag>().HasKey(tt => new {tt.ThreadId, tt.TagId});
             modelBuilder.Entity<ThreadTag>().HasOne(tt => tt.Tag).WithMany(t => t.ThreadTags).HasForeignKey(tt => tt.TagId);
             modelBuilder.Entity<ThreadTag>().HasOne(tt => tt.Thread).WithMany(t => t.ThreadTags).HasForeignKey(tt => tt.ThreadId);
