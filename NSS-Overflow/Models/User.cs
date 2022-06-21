@@ -20,7 +20,7 @@ namespace NSS_Overflow.Models
         public ICollection<Post> Posts { get; set; }
         public ICollection<PostReply> PostReplies { get; set; }
         [UseDbContext(typeof(AppDbContext))]
-        public int? Karma([ScopedService] AppDbContext context) => context.PostKarma?.Where(p => p.PostUsername == Username).Sum(p => p.Vote) ?? 7;
+        public int? Karma([ScopedService] AppDbContext context) => context.PostKarma?.Where(p => p.PostUsername == Username).Sum(p => p.Vote) ?? 0;
 
     }
 }
