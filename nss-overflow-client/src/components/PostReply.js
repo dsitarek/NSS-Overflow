@@ -2,6 +2,7 @@ import React from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import ReactQuill from 'react-quill';
 import PropTypes from 'prop-types';
+import { modules } from '../quillModules';
 
 export default function PostReply({ reply }) {
   return (
@@ -14,6 +15,7 @@ export default function PostReply({ reply }) {
             theme='bubble'
             readOnly={true}
             value={reply.postBody}
+            modules={modules}
           />
         </div>{' '}
         <div className='post-reply-user'>
